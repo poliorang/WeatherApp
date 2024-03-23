@@ -9,6 +9,10 @@ import UIKit
 
 class SecondaryLabel: UILabel {
 
+    // MARK: - Private properties
+    
+    private let colorManager = ColorManager.shared
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -24,7 +28,7 @@ class SecondaryLabel: UILabel {
     // MARK: - Private functions
     
     private func setupUI() {
-        textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.68)
+        textColor = colorManager.colorForKey(.secondaryText)
         font = UIFont(name: "PingFangSC", size: 18)
         clipsToBounds = true
         textAlignment = .left

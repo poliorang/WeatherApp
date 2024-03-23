@@ -9,6 +9,10 @@ import UIKit
 
 class Label: UILabel {
     
+    // MARK: - Private properties
+    
+    private let colorManager = ColorManager.shared
+    
     // MARK: - Public properties
     
     var fontSize: CGFloat = 18 {
@@ -32,7 +36,7 @@ class Label: UILabel {
     // MARK: - Private functions
     
     private func setupUI() {
-        textColor = .white
+        textColor = colorManager.colorForKey(.primaryText)
         clipsToBounds = true
         textAlignment = .left
     }

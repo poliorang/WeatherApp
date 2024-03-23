@@ -14,6 +14,7 @@ final class WeatherViewController: UIViewController {
     private enum Constants {
 //        static let cellIdentifier: String = "ActionsTableViewCell"
     }
+    private let colorManager = ColorManager.shared
     
     private let output: WeatherViewOutput
     private let tableViewDataSource: WeatherTableViewDataSource
@@ -71,7 +72,7 @@ final class WeatherViewController: UIViewController {
     // MARK: - Private functions
 
     private func setUpUI() {
-        view.backgroundColor = UIColor(red: 29/255, green: 40/255, blue: 55/255, alpha: 1.0)
+        view.backgroundColor = colorManager.colorForKey(.primaryBackground)
 
         view.addSubview(dateLabel)
         NSLayoutConstraint.activate([
