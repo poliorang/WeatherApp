@@ -28,6 +28,9 @@
 		4A2F6FAC2BADE93E00938F2E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FA52BADE93E00938F2E /* Service.swift */; };
 		4A2F6FAD2BADE93E00938F2E /* ServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FA62BADE93E00938F2E /* ServiceImpl.swift */; };
 		4A2F6FB02BAEF55500938F2E /* TabControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FAF2BAEF55500938F2E /* TabControl.swift */; };
+		4A2F6FB22BAEF72600938F2E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FB12BAEF72500938F2E /* ColorManager.swift */; };
+		4A2F6FB42BAEFDAA00938F2E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FB32BAEFDAA00938F2E /* Label.swift */; };
+		4A2F6FB62BAF012000938F2E /* SecondaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FB52BAF012000938F2E /* SecondaryLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		4A2F6FA52BADE93E00938F2E /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		4A2F6FA62BADE93E00938F2E /* ServiceImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceImpl.swift; sourceTree = "<group>"; };
 		4A2F6FAF2BAEF55500938F2E /* TabControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControl.swift; sourceTree = "<group>"; };
+		4A2F6FB12BAEF72500938F2E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		4A2F6FB32BAEFDAA00938F2E /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		4A2F6FB52BAF012000938F2E /* SecondaryLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,9 +218,20 @@
 		4A2F6FAE2BAEF53E00938F2E /* DysignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				4A2F6FB12BAEF72500938F2E /* ColorManager.swift */,
+				4A2F6FB92BAF095F00938F2E /* Labels */,
 				4A2F6FAF2BAEF55500938F2E /* TabControl.swift */,
 			);
 			path = DysignSystem;
+			sourceTree = "<group>";
+		};
+		4A2F6FB92BAF095F00938F2E /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				4A2F6FB32BAEFDAA00938F2E /* Label.swift */,
+				4A2F6FB52BAF012000938F2E /* SecondaryLabel.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,9 +303,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A2F6FB22BAEF72600938F2E /* ColorManager.swift in Sources */,
 				4A2F6F9B2BADE4B500938F2E /* WeatherViewOutput.swift in Sources */,
 				4A2F6F932BADE4B500938F2E /* WeatherInteractorInput.swift in Sources */,
 				4A2F6F952BADE4B500938F2E /* WeatherModuleInput.swift in Sources */,
+				4A2F6FB42BAEFDAA00938F2E /* Label.swift in Sources */,
 				4A2F6F992BADE4B500938F2E /* WeatherTableViewDataSourceImpl.swift in Sources */,
 				4A2F6F982BADE4B500938F2E /* WeatherTableViewDataSource.swift in Sources */,
 				4A2F6F912BADE4B500938F2E /* WeatherModuleAssembly.swift in Sources */,
@@ -302,6 +321,7 @@
 				4A2F6F942BADE4B500938F2E /* WeatherInteractorOutput.swift in Sources */,
 				4A2F6F922BADE4B500938F2E /* WeatherInteractor.swift in Sources */,
 				4A2F6F9C2BADE4B500938F2E /* WeatherViewController.swift in Sources */,
+				4A2F6FB62BAF012000938F2E /* SecondaryLabel.swift in Sources */,
 				4A2F6F9A2BADE4B500938F2E /* WeatherViewInput.swift in Sources */,
 				4A2F6FAC2BADE93E00938F2E /* Service.swift in Sources */,
 				4A2F6F962BADE4B500938F2E /* WeatherPresenter.swift in Sources */,
