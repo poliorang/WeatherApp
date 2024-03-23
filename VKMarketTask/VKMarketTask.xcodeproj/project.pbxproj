@@ -92,7 +92,7 @@
 		4A2F6F592BACBE4F00938F2E /* VKMarketTask */ = {
 			isa = PBXGroup;
 			children = (
-				4A2F6FAE2BAEF53E00938F2E /* DysignSystem */,
+				4A2F6FAE2BAEF53E00938F2E /* DesignSystem */,
 				4A2F6F722BADE29D00938F2E /* Application */,
 				4A2F6FA72BADE93E00938F2E /* Service */,
 				4A2F6F732BADE2AF00938F2E /* Modules */,
@@ -215,14 +215,14 @@
 			path = VKMarketTask/Service;
 			sourceTree = SOURCE_ROOT;
 		};
-		4A2F6FAE2BAEF53E00938F2E /* DysignSystem */ = {
+		4A2F6FAE2BAEF53E00938F2E /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
 				4A2F6FB12BAEF72500938F2E /* ColorManager.swift */,
 				4A2F6FB92BAF095F00938F2E /* Labels */,
 				4A2F6FAF2BAEF55500938F2E /* TabControl.swift */,
 			);
-			path = DysignSystem;
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 		4A2F6FB92BAF095F00938F2E /* Labels */ = {

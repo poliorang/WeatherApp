@@ -25,10 +25,7 @@ final class WeatherViewController: UIViewController {
     private var weatherDesriptionLabel: Label
     private var temperatureLabel: Label
     private var parametersTabControl: TabControl
-    
-    var glowView: UIView!
 
-    
     private var tableView: UITableView
 
     // MARK: - Init
