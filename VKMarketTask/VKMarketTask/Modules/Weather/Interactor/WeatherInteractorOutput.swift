@@ -6,5 +6,7 @@
 //
 
 protocol WeatherInteractorOutput: AnyObject {
-
+    func setUpLocation(location: String?)
+    
+    func setUpWeatherParameters(data: WeatherDataModel?)
 }

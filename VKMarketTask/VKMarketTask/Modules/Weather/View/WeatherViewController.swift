@@ -19,7 +19,7 @@ final class WeatherViewController: UIViewController {
     private let output: WeatherViewOutput
     private let tableViewDataSource: WeatherTableViewDataSource
     
-    private var geoLabel: Label
+    private var locationLabel: Label
     private var dateLabel: SecondaryLabel
     private var weatherImageView: UIImageView
     private var weatherDesriptionLabel: Label
@@ -36,7 +36,7 @@ final class WeatherViewController: UIViewController {
         self.output = output
         self.tableViewDataSource = tableViewDataSource
         
-        self.geoLabel = Label().autolayout()
+        self.locationLabel = Label().autolayout()
         self.dateLabel = SecondaryLabel.autolayout()
         self.weatherImageView = UIImageView().autolayout()
         self.weatherDesriptionLabel = Label().autolayout()
@@ -75,22 +75,22 @@ final class WeatherViewController: UIViewController {
         NSLayoutConstraint.activate([
             dateLabel.widthAnchor.constraint(equalToConstant: 80),
             dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
+            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             dateLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        view.addSubview(geoLabel)
+        view.addSubview(locationLabel)
         NSLayoutConstraint.activate([
-            geoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
-            geoLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
-            geoLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
-            geoLabel.heightAnchor.constraint(equalToConstant: 20)
+            locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            locationLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
+            locationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            locationLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         view.addSubview(weatherImageView)
         NSLayoutConstraint.activate([
             weatherImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            weatherImageView.topAnchor.constraint(equalTo: geoLabel.bottomAnchor, constant: 60),
+            weatherImageView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 60),
             weatherImageView.heightAnchor.constraint(equalToConstant: 140),
             weatherImageView.widthAnchor.constraint(equalToConstant: 140)
         ])
@@ -109,7 +109,6 @@ final class WeatherViewController: UIViewController {
             temperatureLabel.heightAnchor.constraint(equalToConstant: 56)
         ])
         
-        
         view.addSubview(parametersTabControl)
         NSLayoutConstraint.activate([
             parametersTabControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -120,15 +119,12 @@ final class WeatherViewController: UIViewController {
     }
     
     private func setUpAppearance() {
-        geoLabel.text = "Moscow"
-        dateLabel.text = "22.03.24"
         weatherImageView.image = UIImage(named: "SunCloudy")
-        weatherDesriptionLabel.text = "Partly Cloudy"
         weatherDesriptionLabel.fontSize = 23
-        temperatureLabel.text = "24°"
         temperatureLabel.fontSize = 48
-        parametersTabControl.labels = ["wind: 3.0m/s", "humidity: 100%", "wind: 3.0m/s", "humidity: 100%", "wind: 3.0m/s", "humidity: 100%", "wind: 3.0m/s", "humidity: 100%"]
         parametersTabControl.contentInset.left = 20
+        
+        output.setUpDate()
     }
     
     private func updateTableView() {
@@ -137,6 +133,25 @@ final class WeatherViewController: UIViewController {
 }
 
 extension WeatherViewController: WeatherViewInput {
+    func setUpLocationLabel(text: String) {
+        locationLabel.text = text
+    }
+    
+    func setUpDateLabel(text: String) {
+        dateLabel.text = text
+    }
+    
+    func setUpDesriptionLabel(text: String) {
+        weatherDesriptionLabel.text = text
+    }
+    
+    func setUpTemperatureLabel(text: String) {
+        temperatureLabel.text = text
+    }
+    
+    func setUpParametersTabControl(params: [String]) {
+        parametersTabControl.labels = params
+    }
 //    func didGetActions(actions: [ActionModel]) {
 //        if actions.isEmpty {
 //            DispatchQueue.main.async {

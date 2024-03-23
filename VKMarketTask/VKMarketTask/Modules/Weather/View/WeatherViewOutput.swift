@@ -6,6 +6,6 @@
 //
 
 protocol WeatherViewOutput: AnyObject {
-
+    func setUpDate()
 }
 
