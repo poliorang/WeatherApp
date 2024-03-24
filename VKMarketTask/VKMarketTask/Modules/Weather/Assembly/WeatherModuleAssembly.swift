@@ -10,6 +10,7 @@ import UIKit
 final class WeatherModuleAssembly {
 
     func module() -> (view: UIViewController, moduleInput: WeatherModuleInput) {
+        
         let weatherService = WeatherServiceImpl()
         let locationManager = LocationManagerImpl()
         

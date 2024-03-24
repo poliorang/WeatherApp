@@ -16,7 +16,7 @@ final class WeatherTableViewDataSourceImpl: NSObject {
     // MARK: - Private properties
     
     private enum Constants {
-        static let cellIdentifier: String = "ActionsTableViewCell"
+        static let cellIdentifier: String = "WeatherTableViewCell"
     }
 
     private weak var tableView: UITableView?

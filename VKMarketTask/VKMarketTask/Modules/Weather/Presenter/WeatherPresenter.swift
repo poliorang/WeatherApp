@@ -19,6 +19,10 @@ final class WeatherPresenter {
         static let dateFormat: String = "yy.MM.dd"
         static let emptyText: String = "- - - -"
         static let kelvinConstant: Double = 273.15
+        static let imageNamesMatch: [String : String] = [
+            "01" : "Clear", "02" : "FewClouds", "03" : "Clouds",
+            "04" : "BrokenClouds", "09" : "ShowerRain", "10" : "Rain",
+            "11" : "Thunderstorm", "13" : "Snow", "50" : "Mist",]
     }
     
     // MARK: - Init
@@ -66,6 +70,7 @@ extension WeatherPresenter: WeatherInteractorOutput {
                   self?.view?.setUpDesriptionLabel(text: Constants.emptyText)
                   self?.view?.setUpTemperatureLabel(text: Constants.emptyText)
                   self?.view?.setUpParametersTabControl(params: [])
+                  self?.view?.setUpImageView(imageName: "Empty")
               }
             return
         }
@@ -76,11 +81,12 @@ extension WeatherPresenter: WeatherInteractorOutput {
                                 "humidity: \(weatherParameters.humidity)%",
                                 "pressure: \(weatherParameters.pressure)hPa",
                                 "visibility: \(weatherParameters.visibility)m"]
-        
+        let imageName = model.weather?[0].icon?.findMatchInDictionary(dictionary: Constants.imageNamesMatch) ?? "empty"
         DispatchQueue.main.async { [weak self] in
             self?.view?.setUpDesriptionLabel(text: weatherParameters.description)
             self?.view?.setUpTemperatureLabel(text: temterature)
             self?.view?.setUpParametersTabControl(params: params)
+            self?.view?.setUpImageView(imageName: imageName)
         }
     }
 }

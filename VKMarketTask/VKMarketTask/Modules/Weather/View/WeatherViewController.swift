@@ -119,7 +119,6 @@ final class WeatherViewController: UIViewController {
     }
     
     private func setUpAppearance() {
-        weatherImageView.image = UIImage(named: "SunCloudy")
         weatherDesriptionLabel.fontSize = 23
         temperatureLabel.fontSize = 48
         parametersTabControl.contentInset.left = 20
@@ -151,6 +150,10 @@ extension WeatherViewController: WeatherViewInput {
     
     func setUpParametersTabControl(params: [String]) {
         parametersTabControl.labels = params
+    }
+    
+    func setUpImageView(imageName: String) {
+        weatherImageView.image = UIImage(named: imageName)
     }
 //    func didGetActions(actions: [ActionModel]) {
 //        if actions.isEmpty {
