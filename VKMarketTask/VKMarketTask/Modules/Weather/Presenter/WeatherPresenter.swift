@@ -16,13 +16,13 @@ final class WeatherPresenter {
     private let interactor: WeatherInteractorInput
     
     private enum Constants {
-        static let dateFormat: String = "yy.MM.dd"
+        static let dateFormat: String = "dd.MM.yy"
         static let emptyText: String = "- - - -"
         static let kelvinConstant: Double = 273.15
         static let imageNamesMatch: [String : String] = [
             "01" : "Clear", "02" : "FewClouds", "03" : "Clouds",
             "04" : "BrokenClouds", "09" : "ShowerRain", "10" : "Rain",
-            "11" : "Thunderstorm", "13" : "Snow", "50" : "Mist",]
+            "11" : "Thunderstorm", "13" : "Snow", "50" : "Mist"]
     }
     
     // MARK: - Init
@@ -39,11 +39,22 @@ final class WeatherPresenter {
         let currentDate = Date()
         let formattedDate = dateFormatter.string(from: currentDate)
 
-        view?.setUpDateLabel(text: formattedDate)
+        view?.configureDateLabel(text: formattedDate)
     }
     
     private func kelvinsInCelsius(kelvins: Double) -> Double {
         return round(10 * (kelvins - Constants.kelvinConstant)) / 10
+    }
+    
+    private func convertParamsForUI(_ weatherParameters: Weather) -> (temterature: String, params: [String], imageName: String) {
+        let temterature = " \(kelvinsInCelsius(kelvins: weatherParameters.temterature))°"
+        let params: [String] = ["wind: \(weatherParameters.speed)m/s",
+                                "humidity: \(weatherParameters.humidity)%",
+                                "pressure: \(weatherParameters.pressure)hPa",
+                                "visibility: \(weatherParameters.visibility)m"]
+        let imageName = weatherParameters.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatch) ?? "Empty"
+        
+        return (temterature, params, imageName)
     }
 }
 
@@ -51,43 +62,59 @@ extension WeatherPresenter: WeatherViewOutput {
     func setUpDate() {
         setUpDateLabel()
     }
+    
+    func updateLocation(_ cityName: String?) {
+        interactor.updateLocation(cityName)
+    }
 }
 
 extension WeatherPresenter: WeatherInteractorOutput {
     
     func setUpLocation(location: String?) {
         guard let location = location else {
-            view?.setUpLocationLabel(text: Constants.emptyText)
+            view?.configureLocationLabel(text: Constants.emptyText)
             return
         }
-        view?.setUpLocationLabel(text: location)
+        view?.configureLocationLabel(text: location)
     }
     
-    func setUpWeatherParameters(data: WeatherDataModel?) {
-        guard let model = data,
-              let weatherParameters = Weather.fromWeatherDataModel(model) else {
+    func setUpWeatherParameters(data: Weather?) {
+        guard let weatherParameters = data else {
               DispatchQueue.main.async { [weak self] in
-                  self?.view?.setUpDesriptionLabel(text: Constants.emptyText)
-                  self?.view?.setUpTemperatureLabel(text: Constants.emptyText)
-                  self?.view?.setUpParametersTabControl(params: [])
-                  self?.view?.setUpImageView(imageName: "Empty")
+                  self?.view?.configureUI(description: Constants.emptyText,
+                                          temterature: Constants.emptyText,
+                                          params: [],
+                                          imageName: "Empty"
+                  )
               }
             return
         }
         
-        
-        let temterature = " \(kelvinsInCelsius(kelvins: weatherParameters.temterature))°"
-        let params: [String] = ["wind: \(weatherParameters.speed)m/s",
-                                "humidity: \(weatherParameters.humidity)%",
-                                "pressure: \(weatherParameters.pressure)hPa",
-                                "visibility: \(weatherParameters.visibility)m"]
-        let imageName = model.weather?[0].icon?.findMatchInDictionary(dictionary: Constants.imageNamesMatch) ?? "empty"
+        let (temterature, params, imageName) = convertParamsForUI(weatherParameters)
         DispatchQueue.main.async { [weak self] in
-            self?.view?.setUpDesriptionLabel(text: weatherParameters.description)
-            self?.view?.setUpTemperatureLabel(text: temterature)
-            self?.view?.setUpParametersTabControl(params: params)
-            self?.view?.setUpImageView(imageName: imageName)
+            self?.view?.configureUI(description: weatherParameters.description,
+                                    temterature: temterature,
+                                    params: params,
+                                    imageName: imageName
+            )
         }
+    }
+    
+    func setUpForecastParameters(data: [Forecast]?) {
+        guard let forecastParameters = data else {
+            DispatchQueue.main.async { [weak self] in
+                self?.view?.configureTableView(forecasts: nil)
+            }
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.configureTableView(forecasts: forecastParameters)
+        }
+    }
+    
+    func didIncorrectLocation() {
+        view?.didIncorrectLocation() 
     }
 }
 

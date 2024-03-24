@@ -13,6 +13,11 @@ final class WeatherInteractor {
     weak var output: WeatherInteractorOutput?
     
     // MARK: - Private properties
+    
+    private enum Constants {
+        static let daysCnt: Int = 5
+    }
+    
     private var userLatitude: CLLocationDegrees?
     private var userLongitude: CLLocationDegrees?
     private var userLocation: CLLocation? {
@@ -25,8 +30,12 @@ final class WeatherInteractor {
     private let weatherService: WeatherService
     private let locationManager: LocationManager
 
+    private var staticticMin = 0.0
+    private var staticticMax = 0.0
+    private var staticticIcon = [String : Int]()
+
     // MARK: - Init
-    
+
     init(weatherService: WeatherService,
          locationManager: LocationManager) {
         self.weatherService = weatherService
@@ -34,32 +43,126 @@ final class WeatherInteractor {
     
         initLocation()
     }
-    
+
     // MARK: - Private Properties
-    
+
     private func initLocation() {
         locationManager.getUserLocationCoordinates { [weak self] location in
             self?.userLocation = location
-            self?.initData()
+            self?.initWeather()
+            self?.initForecast()
+            
             self?.locationManager.getCityNameFromCoordinates(latitude: self?.userLatitude,
-                                                             longitude: self?.userLongitude) { cityName in
+                                                             longitude: self?.userLongitude) {
+                [weak self] cityName in
                 self?.output?.setUpLocation(location: cityName)
+                self?.locationManager.stopUpdatingLocation()
+            }
+        }
+    }
+
+    private func initWeather() {
+        Task {
+            guard let data = try await weatherService.getDataFromServer(
+                lat: userLatitude ?? 0,
+                lon: userLongitude ?? 0,
+                requestType: .weather
+            ) else {
+                output?.setUpWeatherParameters(data: nil)
+                return
+            }
+            do {
+                let weatherData = try JSONDecoder().decode(WeatherDataModel.self, from: data)
+                if (weatherData.cod ?? 0) / 100 != 2 {
+                    output?.setUpWeatherParameters(data: nil)
+                    return
+                }
+                let weatherParameters = Weather.fromWeatherDataModel(weatherData)
+                output?.setUpWeatherParameters(data: weatherParameters)
+            } catch {
+                output?.setUpWeatherParameters(data: nil)
+            }
+        }
+    }
+
+    private func initForecast() {
+        Task {
+            guard let data = try await weatherService.getDataFromServer(
+                lat: userLatitude ?? 0,
+                lon: userLongitude ?? 0,
+                requestType: .forecast
+            ) else {
+                output?.setUpForecastParameters(data: nil)
+                return
+            }
+            
+            do {
+                let forecastData = try JSONDecoder().decode(ForecastDataModel.self, from: data)
+                if (Int(forecastData.cod ?? "0") ?? 0) / 100 != 2 {
+                    output?.setUpForecastParameters(data: nil)
+                    return
+                }
+                output?.setUpForecastParameters(data: getForecasts(forecastData))
+            } catch {
+                output?.setUpForecastParameters(data: nil)
             }
         }
     }
     
-    private func initData() {
-        Task {
-            guard let data = try await weatherService.getDataFromServer(lat: userLatitude ?? 0, lon: userLongitude ?? 0) else {
-                print("error")
-                return
+    private func getForecasts(_ forecastData: ForecastDataModel) -> [Forecast]? {
+        var forecastParameters = [Forecast]()
+        
+        staticticMin = 0
+        staticticMax = 0
+        staticticIcon = [:]
+        
+        for i in 0..<Constants.daysCnt {
+            guard let forecast = Forecast.fromForecastDataModel(model: forecastData, index: i) else {
+                output?.setUpForecastParameters(data: nil)
+                return nil
             }
-            let weatherData = try JSONDecoder().decode(WeatherDataModel.self, from: data)
-            output?.setUpWeatherParameters(data: weatherData)
+            saveStatistics(forecast)
+            forecastParameters.append(forecast)
         }
+        for _ in 0..<2 {
+            forecastParameters.append(createExtraForecast(dt: forecastParameters.last!.dt))
+        }
+        
+        return forecastParameters
+    }
+
+    private func saveStatistics(_ forecast: Forecast) {
+        staticticMin += forecast.minTemterature
+        staticticMax += forecast.maxTemterature
+        staticticIcon[forecast.iconID, default: 0] += 1
+    }
+
+    private func createExtraForecast(dt: Int) -> Forecast {
+        let icon = staticticIcon.max(by: { $0.value < $1.value })
+        
+        return Forecast(dt: dt.nextDayOfWeek() ?? dt, minTemterature: staticticMin / Double(Constants.daysCnt), maxTemterature: staticticMax / Double(Constants.daysCnt), iconID: icon?.key ?? "")
     }
 }
 
 extension WeatherInteractor: WeatherInteractorInput {
-
+    func updateLocation(_ cityName: String?) {
+        locationManager.getCoordinatesFromCityName(cityName: cityName) { [weak self] lat, lon in
+            guard let lat = lat, let lon = lon else {
+                self?.output?.didIncorrectLocation()
+                return
+            }
+            
+            self?.locationManager.getCityNameFromCoordinates(latitude: lat,
+                                                             longitude: lon) {
+                [weak self] cityName in
+                self?.output?.setUpLocation(location: cityName)
+            }
+                
+                
+            self?.userLatitude = lat
+            self?.userLongitude = lon
+            self?.initWeather()
+            self?.initForecast()
+        }
+    }
 }

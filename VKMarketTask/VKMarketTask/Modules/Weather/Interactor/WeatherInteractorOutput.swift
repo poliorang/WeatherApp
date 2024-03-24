@@ -8,5 +8,9 @@
 protocol WeatherInteractorOutput: AnyObject {
     func setUpLocation(location: String?)
     
-    func setUpWeatherParameters(data: WeatherDataModel?)
+    func setUpWeatherParameters(data: Weather?)
+    
+    func setUpForecastParameters(data: [Forecast]?)
+    
+    func didIncorrectLocation()
 }

@@ -6,5 +6,5 @@
 //
 
 protocol WeatherInteractorInput: AnyObject {
-
+    func updateLocation(_ cityName: String?)
 }

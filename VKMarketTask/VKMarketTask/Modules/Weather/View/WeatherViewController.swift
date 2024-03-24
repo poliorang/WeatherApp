@@ -12,21 +12,23 @@ final class WeatherViewController: UIViewController {
     // MARK: - Private properties
     
     private enum Constants {
-//        static let cellIdentifier: String = "ActionsTableViewCell"
+        static let cellIdentifier: String = "WeatherTableViewCell"
     }
     private let colorManager = ColorManager.shared
     
     private let output: WeatherViewOutput
     private let tableViewDataSource: WeatherTableViewDataSource
     
-    private var locationLabel: Label
+    private var scrollView: UIScrollView
+    private var locationTextField: TextField
     private var dateLabel: SecondaryLabel
     private var weatherImageView: UIImageView
     private var weatherDesriptionLabel: Label
     private var temperatureLabel: Label
     private var parametersTabControl: TabControl
-
     private var tableView: UITableView
+    private var heightTableViewConstraint: NSLayoutConstraint?
+    private var bottomTableViewConstraint: NSLayoutConstraint?
 
     // MARK: - Init
 
@@ -36,13 +38,13 @@ final class WeatherViewController: UIViewController {
         self.output = output
         self.tableViewDataSource = tableViewDataSource
         
-        self.locationLabel = Label().autolayout()
+        self.scrollView = UIScrollView().autolayout()
+        self.locationTextField = TextField().autolayout()
         self.dateLabel = SecondaryLabel.autolayout()
         self.weatherImageView = UIImageView().autolayout()
         self.weatherDesriptionLabel = Label().autolayout()
         self.temperatureLabel = Label().autolayout()
         self.parametersTabControl = TabControl().autolayout()
-        
         self.tableView = UITableView().autolayout()
         
         super.init(nibName: nil, bundle: nil)
@@ -58,19 +60,26 @@ final class WeatherViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
         setUpAppearance()
-        updateTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         parametersTabControl.contentOffset.x = -20
+        tableView.contentOffset.y = -6
+    }
+    
+    override func viewWillLayoutSubviews() {
+        let distanceToBottom = UIScreen.main.bounds.size.height - tableView.frame.origin.y - tableView.frame.size.height
+
+        if distanceToBottom <= 0 {
+            bottomTableViewConstraint?.isActive = true
+            heightTableViewConstraint?.isActive = false
+        }
     }
 
     // MARK: - Private functions
 
     private func setUpUI() {
-        view.backgroundColor = colorManager.colorForKey(.primaryBackground)
-
         view.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             dateLabel.widthAnchor.constraint(equalToConstant: 80),
@@ -79,18 +88,18 @@ final class WeatherViewController: UIViewController {
             dateLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        view.addSubview(locationLabel)
+        view.addSubview(locationTextField)
         NSLayoutConstraint.activate([
-            locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
-            locationLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
-            locationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            locationLabel.heightAnchor.constraint(equalToConstant: 20)
+            locationTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            locationTextField.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
+            locationTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            locationTextField.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         view.addSubview(weatherImageView)
         NSLayoutConstraint.activate([
             weatherImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            weatherImageView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 60),
+            weatherImageView.topAnchor.constraint(equalTo: locationTextField.bottomAnchor, constant: 60),
             weatherImageView.heightAnchor.constraint(equalToConstant: 140),
             weatherImageView.widthAnchor.constraint(equalToConstant: 140)
         ])
@@ -116,66 +125,109 @@ final class WeatherViewController: UIViewController {
             parametersTabControl.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 30),
             parametersTabControl.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tableView.topAnchor.constraint(equalTo: parametersTabControl.bottomAnchor, constant: 30)
+        ])
+        heightTableViewConstraint = tableView.heightAnchor.constraint(equalToConstant: 365)
+        heightTableViewConstraint?.isActive = true
+        bottomTableViewConstraint = tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+        bottomTableViewConstraint?.isActive = false
     }
     
     private func setUpAppearance() {
+        view.backgroundColor = colorManager.colorForKey(.primaryBackground)
+        
         weatherDesriptionLabel.fontSize = 23
         temperatureLabel.fontSize = 48
         parametersTabControl.contentInset.left = 20
-        
         output.setUpDate()
+        
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.delegate = tableViewDataSource
+        tableView.dataSource = tableViewDataSource
+        tableView.isHidden = true
+        
+        locationTextField.delegate = self
     }
     
-    private func updateTableView() {
-//        output.setActions()
+    private func configureDesriptionLabel(text: String) {
+        weatherDesriptionLabel.text = text
+    }
+    
+    private func configureTemperatureLabel(text: String) {
+        temperatureLabel.text = text
+    }
+    
+    private func configureParametersTabControl(params: [String]) {
+        parametersTabControl.labels = params
+    }
+    
+    private func configureImageView(imageName: String) {
+        weatherImageView.image = UIImage(named: imageName)
+    }
+    
+    private func didUpdatedLocation() {
+        output.updateLocation((locationTextField.text)?.trimmedAndNormalized)
     }
 }
 
 extension WeatherViewController: WeatherViewInput {
-    func setUpLocationLabel(text: String) {
-        locationLabel.text = text
+    func configureLocationLabel(text: String) {
+        locationTextField.text = text
     }
     
-    func setUpDateLabel(text: String) {
+    func configureDateLabel(text: String) {
         dateLabel.text = text
     }
     
-    func setUpDesriptionLabel(text: String) {
-        weatherDesriptionLabel.text = text
+    func configureUI(description: String, temterature: String, params: [String], imageName: String) {
+        configureDesriptionLabel(text: description)
+        configureTemperatureLabel(text: temterature)
+        configureParametersTabControl(params: params)
+        configureImageView(imageName: imageName)
     }
     
-    func setUpTemperatureLabel(text: String) {
-        temperatureLabel.text = text
+    func configureTableView(forecasts: [Forecast]?) {
+        tableView.isHidden = false
+        tableViewDataSource.update(
+            with: forecasts,
+            tableView: tableView,
+            delegate: self
+        )
     }
     
-    func setUpParametersTabControl(params: [String]) {
-        parametersTabControl.labels = params
+    func didIncorrectLocation() {
+        let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .light)
+        impactFeedbackgenerator.prepare()
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.locationTextField.transform = CGAffineTransform(translationX: 10, y: 0)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.locationTextField.transform = CGAffineTransform(translationX: -10, y: 0)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.locationTextField.transform = CGAffineTransform.identity
+                }, completion: { _ in
+                    impactFeedbackgenerator.impactOccurred()
+                })
+            })
+        })
     }
-    
-    func setUpImageView(imageName: String) {
-        weatherImageView.image = UIImage(named: imageName)
-    }
-//    func didGetActions(actions: [ActionModel]) {
-//        if actions.isEmpty {
-//            DispatchQueue.main.async {
-//                self.emptyLabel.isHidden = false
-//                self.tableView.isHidden = true
-//            }
-//            return
-//        }
-//        
-//        DispatchQueue.main.async {
-//            self.emptyLabel.isHidden = true
-//            self.tableView.isHidden = false
-//        }
-//        tableViewDataSource.update(
-//            with: actions,
-//            tableView: tableView,
-//            delegate: self
-//        )
-//    }
 }
 
 extension WeatherViewController: WeatherTableViewDataSourceDelegate {
     
+}
+
+extension WeatherViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        didUpdatedLocation()
+        return true
+    }
 }

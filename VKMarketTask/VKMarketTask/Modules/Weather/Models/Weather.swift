@@ -13,6 +13,7 @@ struct Weather {
     let visibility: Int
     let pressure: Int
     let humidity: Int
+    let iconID: String
 }
 
 extension Weather {
@@ -23,7 +24,8 @@ extension Weather {
               let speed = model.wind?.speed,
               let visibility = model.visibility,
               let pressure = model.main?.pressure,
-              let humidity = model.main?.humidity else {
+              let humidity = model.main?.humidity,
+              let iconID = model.weather?[0].icon else {
             return nil
         }
 
@@ -33,6 +35,7 @@ extension Weather {
                        speed: speed,
                        visibility: visibility,
                        pressure: pressure,
-                       humidity: humidity)
+                       humidity: humidity,
+                       iconID: iconID)
     }
 }

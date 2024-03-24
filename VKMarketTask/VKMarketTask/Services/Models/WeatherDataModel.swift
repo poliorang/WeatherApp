@@ -11,6 +11,7 @@ struct WeatherDataModel: Codable {
     let main: MainModel?
     let visibility: Int?
     let wind: WindModel?
+    let dt: Int?
     let name: String?
     let cod: Int?
 }

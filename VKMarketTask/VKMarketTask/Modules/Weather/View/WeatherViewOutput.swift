@@ -7,5 +7,7 @@
 
 protocol WeatherViewOutput: AnyObject {
     func setUpDate()
+    
+    func updateLocation(_ cityName: String?)
 }
 

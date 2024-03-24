@@ -6,15 +6,13 @@
 //
 
 protocol WeatherViewInput: AnyObject {
-    func setUpLocationLabel(text: String)
+    func configureLocationLabel(text: String)
     
-    func setUpDateLabel(text: String)
+    func configureDateLabel(text: String)
     
-    func setUpDesriptionLabel(text: String)
+    func configureUI(description: String, temterature: String, params: [String], imageName: String)
     
-    func setUpTemperatureLabel(text: String)
+    func configureTableView(forecasts: [Forecast]?)
     
-    func setUpParametersTabControl(params: [String])
-    
-    func setUpImageView(imageName: String)
+    func didIncorrectLocation()
 }

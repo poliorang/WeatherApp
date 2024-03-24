@@ -8,7 +8,7 @@
 import UIKit
 
 protocol WeatherTableViewDataSource: UITableViewDataSource, UITableViewDelegate {
-    func update(//with actions: [ActionModel],
+    func update(with forecasts: [Forecast]?,
                 tableView: UITableView,
                 delegate: WeatherTableViewDataSourceDelegate
     )

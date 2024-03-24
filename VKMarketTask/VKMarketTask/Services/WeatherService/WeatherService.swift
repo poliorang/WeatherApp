@@ -7,7 +7,20 @@
 
 import Foundation
 
-protocol WeatherService: AnyObject {
+enum RequestType {
+    case weather
+    case forecast
     
-    func getDataFromServer(lat: Double, lon: Double) async throws -> Data?
+    var request: String {
+        switch self {
+        case .weather:
+            return "/weather?"
+        case .forecast:
+            return "/forecast?"
+        }
+    }
+}
+
+protocol WeatherService: AnyObject {
+    func getDataFromServer(lat: Double, lon: Double, requestType: RequestType) async throws -> Data?
 }
