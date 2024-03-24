@@ -15,4 +15,6 @@ protocol WeatherViewInput: AnyObject {
     func setUpTemperatureLabel(text: String)
     
     func setUpParametersTabControl(params: [String])
+    
+    func setUpImageView(imageName: String)
 }

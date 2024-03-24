@@ -2,7 +2,7 @@
 //  Weather.swift
 //  VKMarketTask
 //
-//  Created by Поли Оранж on 24.03.2024.
+//  Created by Polina Egorova on 24.03.2024.
 //
 
 struct Weather {
@@ -26,6 +26,7 @@ extension Weather {
               let humidity = model.main?.humidity else {
             return nil
         }
+
         return Weather(main: main,
                        description: description,
                        temterature: temterature,
