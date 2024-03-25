@@ -1,6 +1,6 @@
 //
 //  WeatherInteractor.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -14,7 +14,7 @@ final class WeatherInteractor {
     
     // MARK: - Private properties
     
-    private enum Constants {
+    private enum InteractorConstants {
         static let daysCnt: Int = 5
     }
     
@@ -32,7 +32,7 @@ final class WeatherInteractor {
 
     private var staticticMin = 0.0
     private var staticticMax = 0.0
-    private var staticticIcon: String = "Empty"
+    private var staticticIcon: String = Constants.emptyImageName
 
     // MARK: - Init
 
@@ -44,7 +44,7 @@ final class WeatherInteractor {
         initLocation()
     }
 
-    // MARK: - Private Properties
+    // MARK: - Private functions
 
     private func initLocation() {
         locationManager.getUserLocationCoordinates { [weak self] location in
@@ -114,9 +114,9 @@ final class WeatherInteractor {
         
         staticticMin = 0
         staticticMax = 0
-        staticticIcon = "Empty"
+        staticticIcon = Constants.emptyImageName
         
-        for i in 0..<Constants.daysCnt {
+        for i in 0..<InteractorConstants.daysCnt {
             guard let forecast = Forecast.fromForecastDataModel(model: forecastData, index: i) else {
                 output?.setUpForecastParameters(data: nil)
                 return nil
@@ -139,11 +139,12 @@ final class WeatherInteractor {
     }
 
     private func createExtraForecast(dt: Int) -> Forecast {
-        return Forecast(dt: dt.nextDayOfWeek() ?? dt, minTemterature: staticticMin / Double(Constants.daysCnt), maxTemterature: staticticMax / Double(Constants.daysCnt), iconID: staticticIcon)
+        return Forecast(dt: dt.nextDayOfWeek() ?? dt, minTemterature: staticticMin / Double(InteractorConstants.daysCnt), maxTemterature: staticticMax / Double(InteractorConstants.daysCnt), iconID: staticticIcon)
     }
 }
 
 extension WeatherInteractor: WeatherInteractorInput {
+    
     func updateLocation(_ cityName: String?) {
         locationManager.getCoordinatesFromCityName(cityName: cityName) { [weak self] lat, lon in
             guard let lat = lat, let lon = lon else {

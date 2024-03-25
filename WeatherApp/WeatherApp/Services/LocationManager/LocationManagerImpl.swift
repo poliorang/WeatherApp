@@ -1,6 +1,6 @@
 //
 //  LocationManagerImpl.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 23.03.2024.
 //
@@ -16,7 +16,7 @@ final class LocationManagerImpl: NSObject, LocationManager {
     private let geocoder = CLGeocoder()
     private let manager = CLLocationManager()
     private var completion: ((CLLocation) -> Void)?
-    
+
     // MARK: - Public functions
     
     public func getUserLocationCoordinates(completion: @escaping ((CLLocation) -> Void)) {

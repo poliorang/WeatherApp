@@ -16,7 +16,6 @@
 		4A2F6F922BADE4B500938F2E /* WeatherInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F802BADE4B500938F2E /* WeatherInteractor.swift */; };
 		4A2F6F932BADE4B500938F2E /* WeatherInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F812BADE4B500938F2E /* WeatherInteractorInput.swift */; };
 		4A2F6F942BADE4B500938F2E /* WeatherInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F822BADE4B500938F2E /* WeatherInteractorOutput.swift */; };
-		4A2F6F952BADE4B500938F2E /* WeatherModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F842BADE4B500938F2E /* WeatherModuleInput.swift */; };
 		4A2F6F962BADE4B500938F2E /* WeatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F852BADE4B500938F2E /* WeatherPresenter.swift */; };
 		4A2F6F972BADE4B500938F2E /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F872BADE4B500938F2E /* WeatherTableViewCell.swift */; };
 		4A2F6F982BADE4B500938F2E /* WeatherTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6F892BADE4B500938F2E /* WeatherTableViewDataSource.swift */; };
@@ -46,6 +45,7 @@
 		4A2F6FF92BB1D6C400938F2E /* WindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FEC2BB1D6C400938F2E /* WindModel.swift */; };
 		4A2F6FFA2BB1D6C400938F2E /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FEE2BB1D6C400938F2E /* WeatherService.swift */; };
 		4A2F6FFB2BB1D6C400938F2E /* WeatherServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FEF2BB1D6C400938F2E /* WeatherServiceImpl.swift */; };
+		4A2F6FFD2BB1DE1100938F2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FFC2BB1DE1100938F2E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +60,6 @@
 		4A2F6F802BADE4B500938F2E /* WeatherInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInteractor.swift; sourceTree = "<group>"; };
 		4A2F6F812BADE4B500938F2E /* WeatherInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInteractorInput.swift; sourceTree = "<group>"; };
 		4A2F6F822BADE4B500938F2E /* WeatherInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInteractorOutput.swift; sourceTree = "<group>"; };
-		4A2F6F842BADE4B500938F2E /* WeatherModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModuleInput.swift; sourceTree = "<group>"; };
 		4A2F6F852BADE4B500938F2E /* WeatherPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPresenter.swift; sourceTree = "<group>"; };
 		4A2F6F872BADE4B500938F2E /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		4A2F6F892BADE4B500938F2E /* WeatherTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		4A2F6FEC2BB1D6C400938F2E /* WindModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindModel.swift; sourceTree = "<group>"; };
 		4A2F6FEE2BB1D6C400938F2E /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		4A2F6FEF2BB1D6C400938F2E /* WeatherServiceImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherServiceImpl.swift; sourceTree = "<group>"; };
+		4A2F6FFC2BB1DE1100938F2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +181,6 @@
 		4A2F6F862BADE4B500938F2E /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				4A2F6F842BADE4B500938F2E /* WeatherModuleInput.swift */,
 				4A2F6F852BADE4B500938F2E /* WeatherPresenter.swift */,
 			);
 			path = Presenter;
@@ -219,8 +218,8 @@
 		4A2F6F902BADE4B500938F2E /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				4A2F6FCF2BAF880700938F2E /* Models */,
 				4A2F6F7F2BADE4B500938F2E /* Assembly */,
+				4A2F6FCF2BAF880700938F2E /* Models */,
 				4A2F6F832BADE4B500938F2E /* Interactor */,
 				4A2F6F862BADE4B500938F2E /* Presenter */,
 				4A2F6F8F2BADE4B500938F2E /* View */,
@@ -233,8 +232,9 @@
 			children = (
 				4A2F6F9E2BADE67C00938F2E /* UIKit+AutoLayout.swift */,
 				4A2F6FD42BAF9C1D00938F2E /* String+ImageNames.swift */,
-				4A2F6FDE2BB0DF7700938F2E /* Int+Timestamp.swift */,
 				4A2F6FE02BB0E9B600938F2E /* String+Normalized.swift */,
+				4A2F6FDE2BB0DF7700938F2E /* Int+Timestamp.swift */,
+				4A2F6FFC2BB1DE1100938F2E /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -303,8 +303,8 @@
 		4A2F6FF12BB1D6C400938F2E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4A2F6FE62BB1D6C400938F2E /* LocationManager */,
 				4A2F6FED2BB1D6C400938F2E /* Models */,
+				4A2F6FE62BB1D6C400938F2E /* LocationManager */,
 				4A2F6FF02BB1D6C400938F2E /* WeatherService */,
 			);
 			name = Services;
@@ -381,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A2F6FF62BB1D6C400938F2E /* MainModel.swift in Sources */,
+				4A2F6FFD2BB1DE1100938F2E /* Constants.swift in Sources */,
 				4A2F6FB22BAEF72600938F2E /* ColorManager.swift in Sources */,
 				4A2F6F9B2BADE4B500938F2E /* WeatherViewOutput.swift in Sources */,
 				4A2F6FF52BB1D6C400938F2E /* ForecastDataModel.swift in Sources */,
@@ -388,7 +389,6 @@
 				4A2F6FDD2BB08DE900938F2E /* TextField.swift in Sources */,
 				4A2F6F932BADE4B500938F2E /* WeatherInteractorInput.swift in Sources */,
 				4A2F6FE32BB17ACD00938F2E /* Button.swift in Sources */,
-				4A2F6F952BADE4B500938F2E /* WeatherModuleInput.swift in Sources */,
 				4A2F6FB42BAEFDAA00938F2E /* Label.swift in Sources */,
 				4A2F6F992BADE4B500938F2E /* WeatherTableViewDataSourceImpl.swift in Sources */,
 				4A2F6F982BADE4B500938F2E /* WeatherTableViewDataSource.swift in Sources */,

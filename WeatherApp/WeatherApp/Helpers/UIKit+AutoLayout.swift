@@ -1,6 +1,6 @@
 //
 //  UIKit+AutoLayout.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova 22.03.2024.
 //

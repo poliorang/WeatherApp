@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let assemblyFactory = AssemblyFactoryImpl.shared
-        let viewController = assemblyFactory.weatherModuleAssembly().module().view
+        let viewController = assemblyFactory.weatherModuleAssembly().module()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = viewController
@@ -52,7 +52,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-

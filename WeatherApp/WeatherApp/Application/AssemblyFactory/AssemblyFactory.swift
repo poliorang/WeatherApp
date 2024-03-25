@@ -1,6 +1,6 @@
 //
 //  Assembly.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 22.03.2024.
 //

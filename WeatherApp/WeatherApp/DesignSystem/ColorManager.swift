@@ -1,23 +1,23 @@
 //
 //  ColorManager.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 23.03.2024.
 //
 
 import UIKit
 
-enum ColorKey {
-    case primaryBackground
-    case secondaryBackground
-    case primaryText
-    case secondaryText
-    case primaryBorder
-}
-
 final class ColorManager {
     
     static let shared = ColorManager()
+    
+    enum ColorKey {
+        case primaryBackground
+        case secondaryBackground
+        case primaryText
+        case secondaryText
+        case primaryBorder
+    }
     
     // MARK: - Init
     
@@ -48,4 +48,3 @@ final class ColorManager {
         }
     }
 }
-

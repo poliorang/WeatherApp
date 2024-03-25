@@ -1,6 +1,6 @@
 //
 //  WeatherViewController.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -11,11 +11,11 @@ final class WeatherViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private enum Constants {
+    private enum ControllerConstants {
         static let cellIdentifier: String = "WeatherTableViewCell"
     }
-    private let colorManager = ColorManager.shared
     
+    private let colorManager = ColorManager.shared
     private let output: WeatherViewOutput
     private let tableViewDataSource: WeatherTableViewDataSource
     
@@ -161,7 +161,7 @@ final class WeatherViewController: UIViewController {
         locationButton.buttonState = .search
         locationTextField.delegate = self
         
-        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: ControllerConstants.cellIdentifier)
         tableView.delegate = tableViewDataSource
         tableView.dataSource = tableViewDataSource
         tableView.isHidden = true
@@ -217,8 +217,7 @@ extension WeatherViewController: WeatherViewInput {
         tableView.isHidden = false
         tableViewDataSource.update(
             with: forecasts,
-            tableView: tableView,
-            delegate: self
+            tableView: tableView
         )
     }
     
@@ -241,10 +240,6 @@ extension WeatherViewController: WeatherViewInput {
             })
         })
     }
-}
-
-extension WeatherViewController: WeatherTableViewDataSourceDelegate {
-    
 }
 
 extension WeatherViewController: UITextFieldDelegate {

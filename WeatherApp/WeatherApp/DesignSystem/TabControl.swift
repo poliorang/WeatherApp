@@ -1,6 +1,6 @@
 //
 //  TabControl.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 23.03.2024.
 //
@@ -9,10 +9,6 @@ import UIKit
 
 final class TabControl: UIScrollView {
 
-    // MARK: - Private properties
-    
-    private let colorManager = ColorManager.shared
-    
     // MARK: - Public properties
     
     public var labels: [String] = [] {
@@ -20,6 +16,11 @@ final class TabControl: UIScrollView {
             setupLabels()
         }
     }
+    
+    // MARK: - Private properties
+    
+    private let colorManager = ColorManager.shared
+    
     
     // MARK: - Private functions
     

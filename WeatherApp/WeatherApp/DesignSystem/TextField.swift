@@ -1,6 +1,6 @@
 //
 //  TextField.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 24.03.2024.
 //
@@ -24,6 +24,8 @@ final class TextField: UITextField {
         super.init(coder: coder)
         setUpUI()
     }
+    
+    // MARK: - Override
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 0, dy: 0)

@@ -1,6 +1,6 @@
 //
 //  AssemblyFactoryImpl.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 22.03.2024.
 //
@@ -23,5 +23,3 @@ extension AssemblyFactoryImpl: AssemblyFactory {
         return _weatherModuleAssembly
     }
 }
-
-

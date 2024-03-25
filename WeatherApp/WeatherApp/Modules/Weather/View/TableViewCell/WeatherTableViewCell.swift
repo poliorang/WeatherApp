@@ -1,6 +1,6 @@
 //
 //  WeatherTableViewCell.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -10,15 +10,6 @@ import UIKit
 final class WeatherTableViewCell: UITableViewCell {
 
     // MARK: - Private properties
-
-    private enum Constants {
-        static let kelvinConstant: Double = 273.15
-        static let emptyText: String = "- - - -"
-        static let imageNamesMatch: [String : String] = [
-            "01" : "Clear", "02" : "FewClouds", "03" : "Clouds",
-            "04" : "BrokenClouds", "09" : "ShowerRain", "10" : "Rain",
-            "11" : "Thunderstorm", "13" : "Snow", "50" : "Mist"]
-    }
     
     private let colorManager = ColorManager.shared
     
@@ -64,7 +55,7 @@ final class WeatherTableViewCell: UITableViewCell {
     
     public func configure(forecast: Forecast?) {
         guard let forecast = forecast,
-              let imageName = forecast.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatch)else {
+              let imageName = forecast.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatchAPI)else {
             dayLabel.text = Constants.emptyText
             minTemperatureLabel.text = Constants.emptyText
             maxTemperatureLabel.text = Constants.emptyText
@@ -109,7 +100,10 @@ final class WeatherTableViewCell: UITableViewCell {
             maxTemperatureLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
+}
 
+extension WeatherTableViewCell {
+    
     private func kelvinsInCelsius(kelvins: Double) -> Int {
         return Int(round(kelvins - Constants.kelvinConstant))
     }

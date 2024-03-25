@@ -1,6 +1,6 @@
 //
 //  Button.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 25.03.2024.
 //
@@ -13,8 +13,6 @@ protocol ButtonDelegate: AnyObject {
 }
 
 final class Button: UIButton {
-    
-    // MARK: - Public properties
     
     weak var delegate: ButtonDelegate?
 
@@ -32,6 +30,8 @@ final class Button: UIButton {
         }
         
     }
+    
+    // MARK: - Public properties
     
     public var buttonState: ButtonState = .search {
         didSet {
@@ -54,7 +54,6 @@ final class Button: UIButton {
         super.init(coder: coder)
         setUpUI()
     }
-    
     
     // MARK: - Private functions
     

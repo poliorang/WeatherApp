@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -31,4 +31,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

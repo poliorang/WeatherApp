@@ -1,6 +1,6 @@
 //
 //  WeatherPresenter.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -14,16 +14,6 @@ final class WeatherPresenter {
     // MARK: - Private properties
     
     private let interactor: WeatherInteractorInput
-    
-    private enum Constants {
-        static let dateFormat: String = "dd.MM.yy"
-        static let emptyText: String = "- - - -"
-        static let kelvinConstant: Double = 273.15
-        static let imageNamesMatch: [String : String] = [
-            "01" : "Clear", "02" : "FewClouds", "03" : "Clouds",
-            "04" : "BrokenClouds", "09" : "ShowerRain", "10" : "Rain",
-            "11" : "Thunderstorm", "13" : "Snow", "50" : "Mist"]
-    }
     
     // MARK: - Init
 
@@ -40,10 +30,6 @@ final class WeatherPresenter {
         let formattedDate = dateFormatter.string(from: currentDate)
 
         view?.configureDateLabel(text: formattedDate)
-    }
-    
-    private func kelvinsInCelsius(kelvins: Double) -> Double {
-        return round(10 * (kelvins - Constants.kelvinConstant)) / 10
     }
     
     private func convertParamsForUI(_ weatherParameters: Weather) -> (temterature: String, params: [String], imageName: String) {
@@ -66,7 +52,7 @@ final class WeatherPresenter {
             params.append("visibility: \(visibility)m")
         }
         
-        let imageName = weatherParameters.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatch) ?? "Empty"
+        let imageName = weatherParameters.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatchAPI) ?? Constants.emptyImageName
 
         return (temterature, params, imageName)
     }
@@ -102,7 +88,7 @@ extension WeatherPresenter: WeatherInteractorOutput {
                   self?.view?.configureUI(description: Constants.emptyText,
                                           temterature: Constants.emptyText,
                                           params: [],
-                                          imageName: "Empty"
+                                          imageName: Constants.emptyImageName
                   )
               }
             return
@@ -136,6 +122,9 @@ extension WeatherPresenter: WeatherInteractorOutput {
     }
 }
 
-extension WeatherPresenter: WeatherModuleInput {
-
+extension WeatherPresenter {
+    private func kelvinsInCelsius(kelvins: Double) -> Double {
+        return round(10 * (kelvins - Constants.kelvinConstant)) / 10
+    }
 }
+

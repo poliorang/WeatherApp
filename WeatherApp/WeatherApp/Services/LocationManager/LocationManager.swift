@@ -1,6 +1,6 @@
 //
 //  LocationManager.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova 23.03.2024.
 //

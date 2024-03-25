@@ -1,21 +1,17 @@
 //
 //  WeatherTableViewDataSourceImpl.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
 
 import UIKit
 
-protocol WeatherTableViewDataSourceDelegate: AnyObject {
-    
-}
-
 final class WeatherTableViewDataSourceImpl: NSObject {
     
     // MARK: - Private properties
     
-    private enum Constants {
+    private enum TableViewConstants {
         static let cellIdentifier: String = "WeatherTableViewCell"
         static let cellHeight: CGFloat = 50
     }
@@ -24,7 +20,6 @@ final class WeatherTableViewDataSourceImpl: NSObject {
     
     private var forecasts: [Forecast]?
     private weak var tableView: UITableView?
-    private weak var delegate: WeatherTableViewDataSourceDelegate?
 
     // MARK: - Init
     
@@ -48,7 +43,7 @@ extension WeatherTableViewDataSourceImpl: WeatherTableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as? WeatherTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewConstants.cellIdentifier, for: indexPath) as? WeatherTableViewCell else {
             assertionFailure("Failed to set tableview cell")
             return UITableViewCell()
         }
@@ -62,12 +57,10 @@ extension WeatherTableViewDataSourceImpl: WeatherTableViewDataSource {
     
 
     func update(with forecasts: [Forecast]?,
-                tableView: UITableView,
-                delegate: WeatherTableViewDataSourceDelegate
+                tableView: UITableView
     ) {
         self.forecasts = forecasts
         self.tableView = tableView
-        self.delegate = delegate
         
         setupTableAppearance()
     
@@ -77,10 +70,10 @@ extension WeatherTableViewDataSourceImpl: WeatherTableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.cellHeight
+        return TableViewConstants.cellHeight
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.cellHeight
+        return TableViewConstants.cellHeight
     }
 }

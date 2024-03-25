@@ -1,6 +1,6 @@
 //
 //  CoordModel.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 24.03.2024.
 //

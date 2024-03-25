@@ -1,6 +1,6 @@
 //
 //  WeatherInteractorInput.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //

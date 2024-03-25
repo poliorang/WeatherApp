@@ -1,6 +1,6 @@
 //
 //  WeatherModuleAssembly.swift
-//  VKMarketTask
+//  WeatherApp
 //
 //  Created by Polina Egorova on 21.03.2024.
 //
@@ -9,7 +9,7 @@ import UIKit
 
 final class WeatherModuleAssembly {
 
-    func module() -> (view: UIViewController, moduleInput: WeatherModuleInput) {
+    func module() -> UIViewController {
         
         let weatherService = WeatherServiceImpl()
         let locationManager = LocationManagerImpl()
@@ -29,9 +29,6 @@ final class WeatherModuleAssembly {
         presenter.view = controller
         interactor.output = presenter
 
-        return (
-            view: controller,
-            moduleInput: presenter
-        )
+        return controller
     }
 }
