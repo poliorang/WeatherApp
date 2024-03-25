@@ -124,6 +124,7 @@ final class WeatherInteractor {
             saveStatistics(forecast)
             forecastParameters.append(forecast)
         }
+        ///openweathermap does not provide a forecast for 7 days, only for 5. Improvising!
         for _ in 0..<2 {
             forecastParameters.append(createExtraForecast(dt: forecastParameters.last!.dt))
         }
