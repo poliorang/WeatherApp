@@ -1,2 +1,5 @@
-# VKMarket_test_task
-Test task for VK Market
+# WeatherApp
+
+- Swift 5
+- iOS 15 <
+- OpenWeatherMap API
