@@ -7,7 +7,7 @@
 
 extension String {
     func findMatchInDictionary(dictionary: [String: String]) -> String? {
-        guard let lastCharacter = self.last else {
+        guard let _ = self.last else {
             return nil
         }
         

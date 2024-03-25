@@ -45,6 +45,7 @@
 		4A2F6FDD2BB08DE900938F2E /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FDC2BB08DE900938F2E /* TextField.swift */; };
 		4A2F6FDF2BB0DF7700938F2E /* Int+Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FDE2BB0DF7700938F2E /* Int+Timestamp.swift */; };
 		4A2F6FE12BB0E9B600938F2E /* String+Normalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FE02BB0E9B600938F2E /* String+Normalized.swift */; };
+		4A2F6FE32BB17ACD00938F2E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F6FE22BB17ACD00938F2E /* Button.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		4A2F6FDC2BB08DE900938F2E /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		4A2F6FDE2BB0DF7700938F2E /* Int+Timestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Timestamp.swift"; sourceTree = "<group>"; };
 		4A2F6FE02BB0E9B600938F2E /* String+Normalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Normalized.swift"; sourceTree = "<group>"; };
+		4A2F6FE22BB17ACD00938F2E /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 				4A2F6FB92BAF095F00938F2E /* Labels */,
 				4A2F6FAF2BAEF55500938F2E /* TabControl.swift */,
 				4A2F6FDC2BB08DE900938F2E /* TextField.swift */,
+				4A2F6FE22BB17ACD00938F2E /* Button.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				4A2F6FBD2BAF70A300938F2E /* LocationManager.swift in Sources */,
 				4A2F6FDD2BB08DE900938F2E /* TextField.swift in Sources */,
 				4A2F6F932BADE4B500938F2E /* WeatherInteractorInput.swift in Sources */,
+				4A2F6FE32BB17ACD00938F2E /* Button.swift in Sources */,
 				4A2F6F952BADE4B500938F2E /* WeatherModuleInput.swift in Sources */,
 				4A2F6FB42BAEFDAA00938F2E /* Label.swift in Sources */,
 				4A2F6F992BADE4B500938F2E /* WeatherTableViewDataSourceImpl.swift in Sources */,

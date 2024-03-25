@@ -21,12 +21,14 @@ final class WeatherViewController: UIViewController {
     
     private var scrollView: UIScrollView
     private var locationTextField: TextField
+    private var locationButton: Button
     private var dateLabel: SecondaryLabel
     private var weatherImageView: UIImageView
     private var weatherDesriptionLabel: Label
     private var temperatureLabel: Label
     private var parametersTabControl: TabControl
     private var tableView: UITableView
+    
     private var heightTableViewConstraint: NSLayoutConstraint?
     private var bottomTableViewConstraint: NSLayoutConstraint?
 
@@ -40,6 +42,7 @@ final class WeatherViewController: UIViewController {
         
         self.scrollView = UIScrollView().autolayout()
         self.locationTextField = TextField().autolayout()
+        self.locationButton = Button().autolayout()
         self.dateLabel = SecondaryLabel.autolayout()
         self.weatherImageView = UIImageView().autolayout()
         self.weatherDesriptionLabel = Label().autolayout()
@@ -88,9 +91,17 @@ final class WeatherViewController: UIViewController {
             dateLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
+        view.addSubview(locationButton)
+        NSLayoutConstraint.activate([
+            locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            locationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            locationButton.heightAnchor.constraint(equalToConstant: 20),
+            locationButton.widthAnchor.constraint(equalToConstant: 20)
+        ])
+        
         view.addSubview(locationTextField)
         NSLayoutConstraint.activate([
-            locationTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            locationTextField.leadingAnchor.constraint(equalTo: locationButton.trailingAnchor, constant: 8),
             locationTextField.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
             locationTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             locationTextField.heightAnchor.constraint(equalToConstant: 20)
@@ -132,6 +143,7 @@ final class WeatherViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.topAnchor.constraint(equalTo: parametersTabControl.bottomAnchor, constant: 30)
         ])
+        
         heightTableViewConstraint = tableView.heightAnchor.constraint(equalToConstant: 365)
         heightTableViewConstraint?.isActive = true
         bottomTableViewConstraint = tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
@@ -144,14 +156,17 @@ final class WeatherViewController: UIViewController {
         weatherDesriptionLabel.fontSize = 23
         temperatureLabel.fontSize = 48
         parametersTabControl.contentInset.left = 20
-        output.setUpDate()
+        
+        locationButton.delegate = self
+        locationButton.buttonState = .search
+        locationTextField.delegate = self
         
         tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.delegate = tableViewDataSource
         tableView.dataSource = tableViewDataSource
         tableView.isHidden = true
-        
-        locationTextField.delegate = self
+
+        output.setUpDate()
     }
     
     private func configureDesriptionLabel(text: String) {
@@ -171,7 +186,14 @@ final class WeatherViewController: UIViewController {
     }
     
     private func didUpdatedLocation() {
+        changeLocationButton()
         output.updateLocation((locationTextField.text)?.trimmedAndNormalized)
+    }
+    
+    private func changeLocationButton() {
+        if locationButton.buttonState == .search {
+            locationButton.buttonState = .location
+        }
     }
 }
 
@@ -201,13 +223,14 @@ extension WeatherViewController: WeatherViewInput {
     }
     
     func didIncorrectLocation() {
-        let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .light)
+        let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .medium)
         impactFeedbackgenerator.prepare()
         
         UIView.animate(withDuration: 0.1, animations: {
             self.locationTextField.transform = CGAffineTransform(translationX: 10, y: 0)
         }, completion: { _ in
             UIView.animate(withDuration: 0.1, animations: {
+                impactFeedbackgenerator.impactOccurred()
                 self.locationTextField.transform = CGAffineTransform(translationX: -10, y: 0)
             }, completion: { _ in
                 UIView.animate(withDuration: 0.1, animations: {
@@ -225,9 +248,26 @@ extension WeatherViewController: WeatherTableViewDataSourceDelegate {
 }
 
 extension WeatherViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        locationTextField.placeholder = locationTextField.text
+        locationTextField.text = ""
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         didUpdatedLocation()
+        
         return true
+    }
+}
+
+extension WeatherViewController: ButtonDelegate {
+    func searchButtonTapped() {
+        locationTextField.becomeFirstResponder()
+    }
+    
+    func locationButtonTapped() {
+        locationButton.buttonState = .search
+        output.updateCurrentLocation()
     }
 }

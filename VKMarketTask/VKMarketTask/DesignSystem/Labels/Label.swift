@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Label: UILabel {
+final class Label: UILabel {
     
     // MARK: - Private properties
     

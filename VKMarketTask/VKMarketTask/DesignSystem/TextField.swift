@@ -7,45 +7,38 @@
 
 import UIKit
 
-class TextField: UITextField {
-    
+final class TextField: UITextField {
+
     // MARK: - Private properties
-    
+
     private let colorManager = ColorManager.shared
     
     // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupTextField()
-        addSearchIcon()
+        setUpUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupTextField()
-        addSearchIcon()
+        setUpUI()
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 25, dy: 0)
+        return bounds.insetBy(dx: 0, dy: 0)
     }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.insetBy(dx: 0, dy: 0)
+    }
+
     
     // MARK: - Private functions
     
-    private func setupTextField() {
+    private func setUpUI() {
         self.backgroundColor = .clear
         textColor = colorManager.colorForKey(.primaryText)
         autocorrectionType = .no
-    }
-    
-    private func addSearchIcon() {
-        let searchIconImageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
-        searchIconImageView.contentMode = .scaleAspectFit
-        searchIconImageView.frame = CGRect(x: 0, y: 0, width: 18, height: 18)
-        searchIconImageView.tintColor = colorManager.colorForKey(.primaryText)
-        
-        leftView = searchIconImageView
-        leftViewMode = .always
     }
 }

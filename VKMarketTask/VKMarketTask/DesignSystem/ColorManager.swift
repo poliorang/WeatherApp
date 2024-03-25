@@ -15,7 +15,7 @@ enum ColorKey {
     case primaryBorder
 }
 
-class ColorManager {
+final class ColorManager {
     
     static let shared = ColorManager()
     

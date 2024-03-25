@@ -32,7 +32,7 @@ final class WeatherInteractor {
 
     private var staticticMin = 0.0
     private var staticticMax = 0.0
-    private var staticticIcon = [String : Int]()
+    private var staticticIcon: String = "Empty"
 
     // MARK: - Init
 
@@ -114,7 +114,7 @@ final class WeatherInteractor {
         
         staticticMin = 0
         staticticMax = 0
-        staticticIcon = [:]
+        staticticIcon = "Empty"
         
         for i in 0..<Constants.daysCnt {
             guard let forecast = Forecast.fromForecastDataModel(model: forecastData, index: i) else {
@@ -134,13 +134,11 @@ final class WeatherInteractor {
     private func saveStatistics(_ forecast: Forecast) {
         staticticMin += forecast.minTemterature
         staticticMax += forecast.maxTemterature
-        staticticIcon[forecast.iconID, default: 0] += 1
+        staticticIcon = forecast.iconID
     }
 
     private func createExtraForecast(dt: Int) -> Forecast {
-        let icon = staticticIcon.max(by: { $0.value < $1.value })
-        
-        return Forecast(dt: dt.nextDayOfWeek() ?? dt, minTemterature: staticticMin / Double(Constants.daysCnt), maxTemterature: staticticMax / Double(Constants.daysCnt), iconID: icon?.key ?? "")
+        return Forecast(dt: dt.nextDayOfWeek() ?? dt, minTemterature: staticticMin / Double(Constants.daysCnt), maxTemterature: staticticMax / Double(Constants.daysCnt), iconID: staticticIcon)
     }
 }
 
@@ -164,5 +162,9 @@ extension WeatherInteractor: WeatherInteractorInput {
             self?.initWeather()
             self?.initForecast()
         }
+    }
+    
+    func updateCurrentLocation() {
+        initLocation()
     }
 }

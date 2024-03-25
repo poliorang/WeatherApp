@@ -48,12 +48,26 @@ final class WeatherPresenter {
     
     private func convertParamsForUI(_ weatherParameters: Weather) -> (temterature: String, params: [String], imageName: String) {
         let temterature = " \(kelvinsInCelsius(kelvins: weatherParameters.temterature))°"
-        let params: [String] = ["wind: \(weatherParameters.speed)m/s",
-                                "humidity: \(weatherParameters.humidity)%",
-                                "pressure: \(weatherParameters.pressure)hPa",
-                                "visibility: \(weatherParameters.visibility)m"]
-        let imageName = weatherParameters.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatch) ?? "Empty"
+        var params = [String]()
         
+        if let speed = weatherParameters.speed {
+            params.append("wind: \(speed)m/s")
+        }
+        
+        if let humidity = weatherParameters.humidity {
+            params.append("humidity: \(humidity)%")
+        }
+        
+        if let pressure = weatherParameters.pressure {
+            params.append("pressure: \(pressure)hPa")
+        }
+        
+        if let visibility = weatherParameters.visibility {
+            params.append("visibility: \(visibility)m")
+        }
+        
+        let imageName = weatherParameters.iconID.findMatchInDictionary(dictionary: Constants.imageNamesMatch) ?? "Empty"
+
         return (temterature, params, imageName)
     }
 }
@@ -65,6 +79,10 @@ extension WeatherPresenter: WeatherViewOutput {
     
     func updateLocation(_ cityName: String?) {
         interactor.updateLocation(cityName)
+    }
+    
+    func updateCurrentLocation() {
+        interactor.updateCurrentLocation()
     }
 }
 
