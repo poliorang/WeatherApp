@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4A2F6F562BACBE4F00938F2E"
-               BuildableName = "VKMarketTask.app"
-               BlueprintName = "VKMarketTask"
-               ReferencedContainer = "container:VKMarketTask.xcodeproj">
+               BuildableName = "WeatherApp.app"
+               BlueprintName = "WeatherApp"
+               ReferencedContainer = "container:WeatherApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4A2F6F562BACBE4F00938F2E"
-            BuildableName = "VKMarketTask.app"
-            BlueprintName = "VKMarketTask"
-            ReferencedContainer = "container:VKMarketTask.xcodeproj">
+            BuildableName = "WeatherApp.app"
+            BlueprintName = "WeatherApp"
+            ReferencedContainer = "container:WeatherApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4A2F6F562BACBE4F00938F2E"
-            BuildableName = "VKMarketTask.app"
-            BlueprintName = "VKMarketTask"
-            ReferencedContainer = "container:VKMarketTask.xcodeproj">
+            BuildableName = "WeatherApp.app"
+            BlueprintName = "WeatherApp"
+            ReferencedContainer = "container:WeatherApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
